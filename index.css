@@ -10,6 +10,7 @@ body{
 }
 
 
+/* main container goes here */
 #calc-container{
     display:flex;
     flex-direction:column;
@@ -20,9 +21,11 @@ body{
     padding: 20px;
     gap: 15px;
     border-radius: 8px;
+    box-shadow: 8px 8px #606060;
 
 }
 
+/* for smaller device */
 @media only screen and (max-width: 600px){
     #calc-container{
         width: 270px !important;
@@ -39,6 +42,10 @@ body{
     font-size: 25px;
     padding: 0 9px;
 }
+.display-operate{
+    font-size: 18px;
+    /* display:none; */
+}
 
 /* calculator buttons, display grid */
 .calc-btns{
@@ -46,6 +53,7 @@ body{
     display:grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5,1fr);
+    grid-gap:3px;
 }
 .equals{
     grid-column:3/5;
@@ -83,6 +91,7 @@ button{
 }
 
 
+/* header and footer goes here */
 header{  
     font-size: 25px;
 }
