@@ -197,28 +197,25 @@ const operate = function (){
     switch(operation){
         case '+':
             result = parseFloat(firstValue) + parseFloat(secondValue);
-            //check if result is decimal, it it is, round to 6 decimal places
-            if((result%1) !==0){
-                result = result.toFixed(6);
-            }else{
-                return result;
+            // check if result is decimal, if it is, round to 6 decimal places
+            if(result%1!==0){
+                result = result.toFixed(5);
             }
+            return result;
 
         case '-':
             result = parseFloat(firstValue) - parseFloat(secondValue);
-            if((result%1) !==0){
-                result = result.toFixed(6);
-            }else{
-                return result;
+            if(result%1!==0){
+                result = result.toFixed(5);
             }
+            return result;
 
         case 'x':
             result = parseFloat(firstValue) * parseFloat(secondValue);
-            if((result%1) !==0){
-                result = result.toFixed(6);
-            }else{
-                return result;
+            if(result%1!==0){
+                result = result.toFixed(5);
             }
+            return result;
 
         case '÷':
             if(secondValue === '0'){
@@ -226,14 +223,21 @@ const operate = function (){
                 return result;
             }else{
                 result = parseFloat(firstValue) / (secondValue);
-                
+                if(result%1!==0){
+                    result = result.toFixed(5);
+                }
             }
-            if((result%1) !==0){
-                result = result.toFixed(6);
-            }else{
-                return result;
-            }
+            return result;
 
     }  
 }
 
+
+
+// Current problem is when you enter firstValue then second value
+// then you press equals,then press operator  it will display
+// undefined to firstValue in upper display
+//
+//
+//
+//
