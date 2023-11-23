@@ -50,8 +50,11 @@ for(const btn of numBtn){
         }else{
             lowerDisplay.innerText += btn.innerText;
         }
-       
-
+        
+        //enables operation buttons after pressing num btns
+        for(const opBtn of operateBtn){
+            opBtn.disabled = false;
+        }
     })
 }
 
@@ -192,29 +195,23 @@ clearEntryBtn.addEventListener('click', (e) => {
 });
 
 
+
 //for operate() which whill be called when +,-,*,/, and = are pressed
 const operate = function (){
     switch(operation){
         case '+':
             result = parseFloat(firstValue) + parseFloat(secondValue);
-            // check if result is decimal, if it is, round to 6 decimal places
-            if(result%1!==0){
-                result = result.toFixed(5);
-            }
+            roundDecimal();
             return result;
 
         case '-':
             result = parseFloat(firstValue) - parseFloat(secondValue);
-            if(result%1!==0){
-                result = result.toFixed(5);
-            }
+            roundDecimal();
             return result;
 
         case 'x':
             result = parseFloat(firstValue) * parseFloat(secondValue);
-            if(result%1!==0){
-                result = result.toFixed(5);
-            }
+            roundDecimal();
             return result;
 
         case '÷':
@@ -223,15 +220,28 @@ const operate = function (){
                 return result;
             }else{
                 result = parseFloat(firstValue) / (secondValue);
-                if(result%1!==0){
-                    result = result.toFixed(5);
-                }
+                roundDecimal();
+                return result;
             }
-            return result;
-
     }  
+    
 }
 
+//will call this function in the result of switch to check if result is decimal, if it is round it of to 6 decimal places
+function roundDecimal(){
+    if(result%1 !== 0){
+        //check num of decimal places
+        const decimalIndex = result.toString().indexOf('.');
+        const numDecimalPlaces = result.toString().length - decimalIndex-1;
+
+        if(numDecimalPlaces>6){
+            // round to 6 decimal places
+            result = parseFloat(result.toString().slice(0, decimalIndex + 7));
+            return result;
+        }
+    }
+    return result;
+}
 
 
 // Current problem is when you enter firstValue then second value
