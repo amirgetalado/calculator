@@ -11,6 +11,7 @@ const numBtn = document.querySelectorAll('.num');
 const operateBtn = document.querySelectorAll('.operate-btn');
 const allBtn = document.querySelectorAll('.btn-all');
 
+const MAX_DIGIT_DISPLAY = 18; //total number of digits to display
 let firstValue;
 let secondValue;
 let operation;
@@ -21,11 +22,14 @@ let result = '';
 //Add event listeners to btn 0-9, '.' button
 for(const btn of numBtn){
     btn.addEventListener('click', (e) => {
+        
+        
+
         if(btn.innerText==='.'){
             btn.disabled = true;
             btn.style.opacity='1';
         }
-        
+
         if(lowerDisplay.innerText===''){
 
             if(btn.innerText==='.'){
@@ -51,6 +55,14 @@ for(const btn of numBtn){
             lowerDisplay.innerText += btn.innerText;
         }
         
+
+        //disable num buttons if max digits is reached
+        if(lowerDisplay.innerText.length >= MAX_DIGIT_DISPLAY ){
+            for(const nBtn of numBtn){
+                nBtn.disabled=true;     
+            }
+        }
+
         //enables operation buttons after pressing num btns
         for(const opBtn of operateBtn){
             opBtn.disabled = false;
@@ -65,6 +77,12 @@ for(const opBtn of operateBtn){
         //Once the operation buttons are clicked, user can enter decimal again
         decimalBtn.disabled = false;
 
+        //enable num buttons in case it was all disabled from the previous loop
+        for (const btn of numBtn) {
+            btn.disabled = false;
+          }
+
+        
         if(lowerDisplay.innerText===''){
             opBtn.disabled = true;
         }else{
@@ -96,11 +114,6 @@ equalBtn.addEventListener('click', (e) => {
     // if there is no operation
     if(operation===undefined){
         equalBtn.disabled=true;
-
-    // }else if(firstValue!==undefined && secondValue===undefined && operation!==undefined){
-    //     equalBtn.disabled=false;
-    //     secondValue = lowerDisplay.innerText;
-
     }else{
         
         equalBtn.disabled=false;
@@ -131,41 +144,6 @@ equalBtn.addEventListener('click', (e) => {
         secondValue = undefined;
         
     }
-
-
-
-    // //if you have firstValue, and no secondValue yet
-    // if(firstValue!=undefined && secondValue===undefined){
-    //     //secondValue will be the text currently displayed then operate afterwards
-       
-    //     secondValue = lowerDisplay.innerText;
-    //     operate();
-
-    //     //change display to result
-    //     lowerDisplay.innerText = result; 
-    //     upperDisplay.innerText=`${firstValue} ${operation} ${secondValue} `; 
-
-    //     //if result is num divided by zero
-    //     if(lowerDisplay.innerText===`Can't divide by 0!`){
-
-    //         //disable all button except clearAll
-    //         for(const btn of allBtn){
-    //             btn.disabled=true;
-    //             btn.style.opacity='.1'
-    //         }   
-    //         clearBtn.disabled=false;  
-    //         clearBtn.style.opacity='1';   
-    //         clearBtn.style.background = 'red';
-            
-
-    //     }
-        
-    //     firstValue = result;
-    //     operation = undefined;
-    //     secondValue = undefined;
-    //     result = undefined;
-
-    // }
     
 });
 
