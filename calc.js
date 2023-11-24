@@ -14,7 +14,7 @@ const allBtn = document.querySelectorAll('.btn-all');
 let firstValue;
 let secondValue;
 let operation;
-let result;
+let result = '';
 
 // let currentDisplay=lowerDisplay.innerText;
 
@@ -62,6 +62,7 @@ for(const btn of numBtn){
 //add event listeners to operation buttons, disable them if there are no current display
 for(const opBtn of operateBtn){
     opBtn.addEventListener('click', (e) => {
+        //Once the operation buttons are clicked, user can enter decimal again
         decimalBtn.disabled = false;
 
         if(lowerDisplay.innerText===''){
@@ -77,25 +78,31 @@ for(const opBtn of operateBtn){
             }else if(firstValue!=undefined && secondValue===undefined){
                 secondValue = lowerDisplay.innerText;
                 operate();
-                operation = opBtn.innerText;
                 firstValue = result;
+                operation = opBtn.innerText;
                 upperDisplay.innerText = `${firstValue} ${opBtn.innerText}`
                 lowerDisplay.innerText = '0';
                 secondValue=undefined;
             }
 
         }
-        
-
     });
 }
 
+
+
 //add event listener to equals button and set values of operation, firstVal secondVal after
 equalBtn.addEventListener('click', (e) => {
-    //if there is no operation
+    // if there is no operation
     if(operation===undefined){
         equalBtn.disabled=true;
+
+    // }else if(firstValue!==undefined && secondValue===undefined && operation!==undefined){
+    //     equalBtn.disabled=false;
+    //     secondValue = lowerDisplay.innerText;
+
     }else{
+        
         equalBtn.disabled=false;
         secondValue = lowerDisplay.innerText;
         operate();
@@ -122,7 +129,7 @@ equalBtn.addEventListener('click', (e) => {
         firstValue = result;
         operation = undefined;
         secondValue = undefined;
-        result = undefined;
+        
     }
 
 
@@ -163,7 +170,17 @@ equalBtn.addEventListener('click', (e) => {
 });
 
 
-
+squareBtn.addEventListener('click', (e) => {
+    if(lowerDisplay.innerText ===''){
+        squareBtn.disabled=true;
+    }else{
+        squareBtn.disabled=false;
+        let num = lowerDisplay.innerText;
+        square = num * num;
+        lowerDisplay.innerText = square;
+    }
+    
+})
 
 
 //eventlistener for clear all button
